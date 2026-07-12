@@ -18,7 +18,12 @@
            [java.net.http HttpClient HttpRequest HttpResponse$BodyHandlers]
            [java.time Duration]))
 
-(def modality :model3d)
+;; NOTE: cloud-murakumo's murakumo.edn declares this function's :fn/modality
+;; as :3d, not :model3d (confirmed via grep against resources/murakumo.edn —
+;; :model3d is only the network-isekai isekai.asset :kind label, a different
+;; vocabulary; see persona.edn's :persona/kind vs :persona/modality). Using
+;; :model3d here would make gen/fn-for-modality never find this function.
+(def modality :3d)
 (def actor-id "gftd-sculpt-actor")
 
 (defn function
@@ -26,7 +31,7 @@
   in cloud-murakumo, we just look it up — never hardcode the model list)."
   []
   (or (gen/fn-for-modality (spec/functions (spec/load-spec)) modality)
-      (throw (ex-info "no :model3d generation function in murakumo.edn" {:modality modality}))))
+      (throw (ex-info "no generation function for this modality in murakumo.edn" {:modality modality}))))
 
 (defn- kotoba-url [] (or (System/getenv "MURAKUMO_KOTOBA_URL") "https://kotobase.net"))
 (defn- kotoba-graph [] (or (System/getenv "MURAKUMO_KOTOBA_GRAPH") "gftd-murakumo"))

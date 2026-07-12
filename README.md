@@ -100,5 +100,6 @@ publish}.clj(c)` (murakumo→governor→aozora pipeline) and
 `cloud-murakumo`'s `src/cloud_murakumo/cosci.cljc` (co-scientist tournament
 shape). This repo itself is a faithful port of `gftd-illust-actor` (actor #1
 of 7), substituting the image domain for the 3D model domain (murakumo
-modality `:model3d`, engine `:trellis`, network-isekai gen stage
-`:photo-to-3d`, formats `glb`/`gltf`/`vrm`).
+modality `:3d` — NOT `:model3d`, which is only network-isekai's
+`isekai.asset` `:kind` label, a different vocabulary — engine `:trellis`,
+network-isekai gen stage `:photo-to-3d`, formats `glb`/`gltf`/`vrm`).
