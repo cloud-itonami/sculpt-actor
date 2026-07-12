@@ -9,7 +9,7 @@
   TEXT for persona-fit and descriptive quality, not the rendered mesh the
   generation job actually produced. A real perceptual judge (a mesh-quality
   score, a vision-capable critique call over rendered turntable frames) is
-  follow-up work — see ADR-2607122200 Consequences."
+  follow-up work — see ADR-2607122400 Consequences."
   (:require [cheshire.core :as json]
             [clojure.string :as str])
   (:import [java.net URI]
