@@ -28,12 +28,12 @@
    :asset/kind kind
    :asset/format format
    :asset/title title
-   :asset/author "gftd-sculpt-actor"
+   :asset/author "sculpt-actor"
    :asset/license license
    :asset/tags (vec tags)
    :asset/source :gen
    :asset/gen {:stage :photo-to-3d :job-key gen-job-id :prompt prompt
-               :provenance "murakumo/trellis via gftd-sculpt-actor co-scientist loop"}
+               :provenance "murakumo/trellis via sculpt-actor co-scientist loop"}
    :asset/created created})
 
 (defn write-asset!

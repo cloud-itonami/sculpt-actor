@@ -23,7 +23,7 @@
 ;; vocabulary; see persona.edn's :persona/kind vs :persona/modality). Using
 ;; :model3d here would make gen/fn-for-modality never find this function.
 (def modality :3d)
-(def actor-id "gftd-sculpt-actor")
+(def actor-id "sculpt-actor")
 
 (defn function
   "This actor's murakumo.edn `:apps :generation` function entry (SSoT stays
