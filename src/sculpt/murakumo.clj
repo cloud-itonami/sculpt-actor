@@ -11,12 +11,11 @@
   --kotoba-graph gftd-murakumo`, running on a Mac-mini / `gad` node) has to be
   up and consuming that queue for jobs to ever leave :queued. Same
   operational dependency ai-gftd-apex already has on cloud-murakumo."
-  (:require [cloud-murakumo.spec :as spec]
+  (:require [kotoba.net.jvm-host :as jvm-host]
+            [cloud-murakumo.spec :as spec]
             [cloud-murakumo.gen :as gen]
             [cloud-murakumo.queue-kotoba :as qk])
-  (:import [java.net URI]
-           [java.net.http HttpClient HttpRequest HttpResponse$BodyHandlers]
-           [java.time Duration]))
+  )
 
 ;; NOTE: cloud-murakumo's murakumo.edn declares this function's :fn/modality
 ;; as :3d, not :model3d (confirmed via grep against resources/murakumo.edn —
@@ -84,14 +83,12 @@
 
 (defn jvm-http-get
   "Plain GET, returns {:status :body-bytes}. Used for both http(s) artifact
-  URLs and the kotoba CID gateway fallback below."
+  URLs and the kotoba CID gateway fallback below. Delegated to
+  kotoba.net.jvm-host (:as-bytes)."
   [url]
-  (let [req (-> (HttpRequest/newBuilder (URI/create url))
-                (.timeout (Duration/ofSeconds 120))
-                (.GET)
-                .build)
-        resp (.send (HttpClient/newHttpClient) req (HttpResponse$BodyHandlers/ofByteArray))]
-    {:status (.statusCode resp) :body-bytes (.body resp)}))
+  (let [resp ((jvm-host/http-transport {:timeout-seconds 120 :as-bytes true})
+              {:url url :method :get})]
+    {:status (:status resp) :body-bytes (:body resp)}))
 
 (defn artifact-url
   "One `:gen.job/artifacts` entry -> a fetchable URL. If it's already an
